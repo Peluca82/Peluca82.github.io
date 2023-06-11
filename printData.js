@@ -14,5 +14,5 @@ function printData(){
   //
   pop();
 
-  gestorAmp.dibujar(100,height-125);
+  gestorAmp.dibujar(width/6,100);
 }
