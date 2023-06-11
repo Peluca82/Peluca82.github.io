@@ -1,11 +1,13 @@
 
 //https://youtu.be/mz7j_4N8XuY
-//hola xd
 let arreglo = [];
 let mascara = [];
 let cant = 0;
 let miVelocidadYDireccion;
 let gestor;
+
+//--------SONIDO-------
+let img1;
 
 //-------IMPRIMIR------
 let font;
