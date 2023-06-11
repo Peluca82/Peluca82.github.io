@@ -1,7 +1,7 @@
 function printData(){
   push();
   //
-  let textString = 'amplitud: ' + amp + '\numbral: ' + amp_min;
+  let textString = 'Señal filtrada: ' + gestorAmp.filtrada + '\numbralMin: ' + amp_Min + '\numbralMax: '+ amp_Max;
   fill(255);
   noStroke();
   rect(0,0,width,100);

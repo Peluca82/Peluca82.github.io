@@ -16,7 +16,8 @@ let IMPRIMIR = true;
 //-------MICROFONO------
 let mic;
 let amp;
-let amp_min = 0.01;
+let amp_Min = 0.02;
+let amp_Max = 0.2;
 let haySonido = false;
 
 //-------COLORES-------
@@ -25,6 +26,7 @@ let azul = 0;
 let gris = 0;
 let amarillo = 0;
 let rosa = 0;
+let gestorAmp;
 
 function preload() {
   font = loadFont('data/regular.otf');
@@ -41,7 +43,7 @@ function setup() {
   miVelocidadYDireccion = new Dir_y_Vel();
 
   createCanvas(600, 800);
-  background(255);                 
+  background(255);
   imageMode(CENTER);
 
   // MIC
@@ -54,21 +56,19 @@ function setup() {
   gestor = new GestorDeInteracion();
 
   //-------APLICACION DE MASCARA A LOS RECTANGULOS-------
-  for (let i = 0; i < 32; i++){
-    mascara[i].mask (arreglo[i]);
+  for (let i = 0; i < 32; i++) {
+    mascara[i].mask(arreglo[i]);
   }
+  //-------GESTOR DE SEÑAL-----------
+  gestorAmp = new gestorSenial(amp_Min, amp_Max);
 
 }
 
 function draw() {
   //--------MICROFONO---------
-  amp = mic.getLevel(); 
+  gestorAmp.actualizar(mic.getLevel()); //el gestor de sonido recibe la entrada de audio
 
-  if(amp > amp_min){
-    haySonido = true;
-  } else {
-    haySonido = false;
-  }
+  amp = gestorAmp.filtrada;
 
   //-------DIRECCION Y INTERACCION-------
   miVelocidadYDireccion.calcularTodo(mouseX, mouseY);
@@ -79,7 +79,7 @@ function draw() {
   let trazoRandom = mascara[int(random(mascara.length))];            //ESTO ES PARA LA MASCARA
   //let trazoRandom = arreglo[int(random(arreglo.length))];
 
-  print(amp);
+  //print(amp);
   printData();
 
   if(cant <= 250){
