@@ -7,9 +7,6 @@ let cant = 0;
 let miVelocidadYDireccion;
 let gestor;
 
-//--------SONIDO-------
-let img1;
-
 //-------IMPRIMIR------
 let font;
 let IMPRIMIR = true;
