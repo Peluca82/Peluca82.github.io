@@ -1,6 +1,5 @@
 
 //https://youtu.be/mz7j_4N8XuY
-//Hola xd
 let arreglo = [];
 let mascara = [];
 let cant = 0;
