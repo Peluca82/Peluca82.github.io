@@ -18,6 +18,7 @@ let mic;
 let amp;
 let amp_min = 0.00001;
 let amp_max = 0.2;
+let audioCotext;
 let haySonido = false;
 let antesHabiaSonido = false;
 
@@ -32,6 +33,14 @@ let blanco = 0;
 
 let gestorAmp;
 
+
+//-----CLASIFICADOR-----
+let classifier;
+const options = {probabilityThreshold: 0.9};
+let label;
+let etiqueta;
+let soundModel = 'https://teachablemachine.withgoogle.com/models/ef-dQhHiU/';
+
 function preload() {
   //------FUENTE------
   font = loadFont('data/regular.otf');
@@ -42,6 +51,8 @@ function preload() {
     arreglo[i] = loadImage(nombre);
     mascara.push (loadImage('data/rect.png'));
   }
+
+  classifier = ml5.soundClassifier(soundModel + 'model.json');
 }
 
 function setup() {
@@ -51,6 +62,7 @@ function setup() {
   hay = round(random(0,1));
 
   //------MIC------
+  audioContext = getAudioContext();
   mic = new p5.AudioIn();
   mic.start();
   userStartAudio();
@@ -61,6 +73,8 @@ function setup() {
     mascara[i].mask (arreglo[i]);
   }
 
+  //-----CLASIFICADOR-----
+  classifier.classify(gotResult);
 }
 
 function draw() {
@@ -101,7 +115,7 @@ function draw() {
       }
 
     //-------CELESTE-------
-    }else if(celeste <= 30 && haySonido){
+    }else if(celeste <= 35 && haySonido){
       tint(52,168,215);
       if (frameCount%5 == 0){
         image(trazoRandom,x,y);
@@ -117,7 +131,7 @@ function draw() {
       }
 
     //-------AZUL-------
-    }else if(azul <= 20 && haySonido){
+    }else if(azul <= 25 && haySonido){
       tint(0,71,123); 
       if (frameCount%5 == 0){
         image(trazoRandom,x,y);
@@ -135,10 +149,8 @@ function draw() {
     //-------BLANCO-------
     }else if(blanco <= 10 && haySonido){
       tint(255); 
-      if (frameCount%5 == 0){
-        image(trazoRandom,x,y, 30, 150);
-        blanco++;
-      }
+      image(trazoRandom,x,y, 30, 150);
+      blanco++;
     }
   }
 
@@ -147,6 +159,23 @@ function draw() {
   }
 
   antesHabiaSonido = haySonido;
+  reset();
+
+  function reset(){
+    if(label == 'Chasquidos'){
+      noStroke();
+      rect(0,0,width, height)
+      hay = round(random(0,1));
+      celeste = 0;
+      azul = 0;
+      gris = 0;
+      amarillo = 0;
+      rosa = 0;
+      azulF = 0;
+      blanco = 0;
+      label = '';
+    }
+  }
 }
 
 function keyPressed(){
@@ -175,43 +204,12 @@ function keyPressed(){
     azulF = 0;
     blanco = 0;
   }
-} /* gris amarillo celeste rosa azul 
+}
 
-  if(gris <= 5 && haySonido){
-      tint(143,169,186);
-      if (frameCount%5 == 0){
-        image(trazoRandom,x,y);
-        gris++;
-      }
-    }else if(amarillo <= 3 && haySonido){
-      tint(252,233,104);
-      if (frameCount%5 == 0){
-        image(trazoRandom,x,y);
-        amarillo++;
-      }
-    }else if(celeste <= 20 && haySonido){
-      tint(52,168,215);
-      if (frameCount%5 == 0){
-        image(trazoRandom,x,y);
-        celeste++;
-      }
-    }else if(rosa <= 2 && haySonido){
-      tint(244,53,170);
-      if (frameCount%5 == 0){
-        image(trazoRandom,x,y);
-        rosa++;
-      }
-    }else if(azul <= 15 && haySonido){
-      tint(0,71,123); 
-      if (frameCount%5 == 0){
-        image(trazoRandom,x,y);
-        azul++;
-      }
-    }else if(hay == 1 && azulF <= 5 && haySonido){
-      tint(1,10,178); 
-      if (frameCount%5 == 0){
-        image(trazoRandom,x,y);
-        azulF++;
-      }
-    }
-  */
+function gotResult(error, results) {
+  if (error) {
+    console.error(error);
+    return;
+  }
+  label = results[0].label;
+}
