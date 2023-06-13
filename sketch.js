@@ -207,3 +207,4 @@ function gotResult(error, results) {
   }
   label = results[0].label;
 }
+}
