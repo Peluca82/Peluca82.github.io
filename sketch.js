@@ -16,7 +16,7 @@ let IMPRIMIR = false;
 //-------SONIDO------
 let mic;
 let amp;
-let amp_min = 0.00001;
+let amp_min = 0.02;
 let amp_max = 0.2;
 let audioCotext;
 let haySonido = false;
