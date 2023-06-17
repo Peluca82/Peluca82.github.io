@@ -8,6 +8,7 @@
 let arreglo = [];
 let mascara = [];
 let hay = 0;
+const margen = 50; // Margen de distancia entre los trazos
 
 //-------IMPRIMIR------
 let font;
@@ -92,17 +93,40 @@ function draw() {
 
   //-------APLICACION DE MASCARA A LOS RECTANGULOS-------
   let trazoRandom = mascara[int(random(mascara.length))];
+    //------GENERAR VALORES PARA LAS POSICIONES X E Y CON UN MARGEN DE DISTANCIA ENTRE SI
+    function generarValoresXY(width, height, margen) {
+      const min_x = 100;
+      const max_x = width - 100;
+      const min_y = 200;
+      const max_y = height - 200;
 
-    // CAMBIAR PARA NO SEA COMLETAMENTE ALEATORIO
-    let x = random(100,width-100); 
-    let y = random(200,height-200);
+      // Generar un valor aleatorio para x dentro del rango
+      const x = Math.random() * (max_x - min_x) + min_x;
+
+      // Generar un valor aleatorio para y dentro del rango
+      const y = Math.random() * (max_y - min_y) + min_y;
+
+      // Aplicar el margen de distancia a los valores generados
+      const margen_x =
+        (Math.random() < 0.5 ? -1 : 1) * (Math.random() * margen);
+      const margen_y =
+        (Math.random() < 0.5 ? -1 : 1) * (Math.random() * margen);
+      const x_con_margen = x + margen_x;
+      const y_con_margen = y + margen_y;
+
+      return { x: x_con_margen, y: y_con_margen };
+    }
+
+    // Ejemplo de uso
+    const valoresXY = generarValoresXY(width, height, margen); //Este es el llamado de la función
+    
   if(!IMPRIMIR){
 
     //-------GRIS-------
     if(gris <= 5 && haySonido){
       tint(143,169,186);
       if (frameCount%5 == 0){
-        image(trazoRandom,x,y);
+        image(trazoRandom, valoresXY.x, valoresXY.y);
         gris++;
       }
 
@@ -110,7 +134,7 @@ function draw() {
     }else if(amarillo <= 3 && haySonido){
       tint(252,233,104);
       if (frameCount%5 == 0){
-        image(trazoRandom,x,y);
+        image(trazoRandom, valoresXY.x, valoresXY.y);
         amarillo++;
       }
 
@@ -118,7 +142,7 @@ function draw() {
     }else if(celeste <= 35 && haySonido){
       tint(52,168,215);
       if (frameCount%5 == 0){
-        image(trazoRandom,x,y);
+        image(trazoRandom, valoresXY.x, valoresXY.y);
         celeste++;
       }
 
@@ -126,7 +150,7 @@ function draw() {
     }else if(rosa <= 2 && haySonido){
       tint(244,53,170);
       if (frameCount%5 == 0){
-        image(trazoRandom,x,y);
+        image(trazoRandom, valoresXY.x, valoresXY.y);
         rosa++;
       }
 
@@ -134,7 +158,7 @@ function draw() {
     }else if(azul <= 25 && haySonido){
       tint(0,71,123); 
       if (frameCount%5 == 0){
-        image(trazoRandom,x,y);
+        image(trazoRandom, valoresXY.x, valoresXY.y);
         azul++;
       }
 
@@ -142,14 +166,14 @@ function draw() {
     }else if(hay == 1 && azulF <= 5 && haySonido){
       tint(1,10,178); 
       if (frameCount%5 == 0){
-        image(trazoRandom,x,y);
+        image(trazoRandom, valoresXY.x, valoresXY.y);
         azulF++;
       }
 
     //-------BLANCO-------
     }else if(blanco <= 10 && haySonido){
       tint(255); 
-      image(trazoRandom,x,y, 30, 150);
+      image(trazoRandom, valoresXY.x, valoresXY.y, 30, 150);
       blanco++;
     }
   }
