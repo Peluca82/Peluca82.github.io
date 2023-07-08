@@ -20,7 +20,7 @@ function trazos(trazoRandom,x,y) {
       }
 
     //-------AMARILLO-------
-    } if( gris >= 5 && amarillo <= 3 && haySonido){
+    } if(amarillo <= 3 && haySonido){
       tint(252,233,104);
       if (frameCount%5 == 0){
         image(trazoRandom,x,y);
@@ -28,7 +28,7 @@ function trazos(trazoRandom,x,y) {
       }
 
     //-------CELESTE-------
-    } if(amarillo >= 3 && celeste <= 35 && haySonido){
+    } if(celeste <= 35 && haySonido){
       tint(52,168,215);
       if (frameCount%5 == 0){
         image(trazoRandom,x,y);
@@ -36,7 +36,7 @@ function trazos(trazoRandom,x,y) {
       }
 
     //-------ROSA-------
-    } if(celeste >= 35 && rosa <= 2 && haySonido){
+    } if(rosa <= 2 && haySonido){
       tint(244,53,170);
       if (frameCount%5 == 0){
         image(trazoRandom,x,y);
@@ -44,7 +44,7 @@ function trazos(trazoRandom,x,y) {
       }
 
     //-------AZUL-------
-    } if(rosa >= 2 && azul <= 25 && haySonido){
+    } if(azul <= 25 && haySonido){
       tint(0,71,123); 
       if (frameCount%5 == 0){
         image(trazoRandom,x,y);
@@ -52,7 +52,7 @@ function trazos(trazoRandom,x,y) {
       }
 
     //-------AZUL FUERTE-------
-    } if(azul >= 25 && hay == 1 && azulF <= 5 && haySonido){
+    } if(hay == 1 && azulF <= 5 && haySonido){
       tint(1,10,178); 
       if (frameCount%5 == 0){
         image(trazoRandom,x,y);
@@ -60,7 +60,7 @@ function trazos(trazoRandom,x,y) {
       }
 
     //-------BLANCO-------
-    } if((azul>= 25 || azulF >= 5) && blanco <= 10 && haySonido){
+    } if(blanco <= 10 && haySonido){
       tint(255); 
       image(trazoRandom,x,y, 30, 150);
       blanco++;
