@@ -19,7 +19,7 @@ let IMPRIMIR = false;
 //-------SONIDO------
 let mic;
 let amp;
-let amp_min = 0.000002;
+let amp_min = 0.02;
 let amp_max = 0.2;
 let audioCotext;
 let haySonido = false;
@@ -51,7 +51,7 @@ let gestorAmp;
 let classifier;
 let label;
 let etiqueta;
-let soundModel = 'https://teachablemachine.withgoogle.com/models/ef-dQhHiU/';
+let soundModel = 'https://teachablemachine.withgoogle.com/models/Y6K_St6yu/';
 
 function preload() {
   //------FUENTE------
