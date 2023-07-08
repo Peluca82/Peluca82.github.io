@@ -12,7 +12,7 @@ function trazos(trazoRandom,x,y) {
 
   if(!IMPRIMIR){
     //-------GRIS-------
-    if(gris <= 5 && label == 'AAAAAA'){
+    if(gris <= 5 && haySonido){
       tint(143,169,186);
       if (frameCount%5 == 0){
         image(trazoRandom,x,y);
@@ -20,7 +20,7 @@ function trazos(trazoRandom,x,y) {
       }
 
     //-------AMARILLO-------
-    } if( gris >= 5 && amarillo <= 3 && label == 'EEEEEE'){
+    } if( gris >= 5 && amarillo <= 3 && haySonido){
       tint(252,233,104);
       if (frameCount%5 == 0){
         image(trazoRandom,x,y);
