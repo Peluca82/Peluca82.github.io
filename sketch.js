@@ -1,6 +1,4 @@
 
-//https://youtu.be/mz7j_4N8XuY
-
 //------TRAZOS-----
 let arreglo = [];
 let mascara = [];
@@ -51,13 +49,13 @@ let gestorAmp;
 let classifier;
 let label;
 let etiqueta;
-let soundModel = 'https://teachablemachine.withgoogle.com/models/Y6K_St6yu/';
+let soundModel = 'https://teachablemachine.withgoogle.com/models/cy6YRPF3q/';
 
 function preload() {
   //------FUENTE------
   font = loadFont('data/regular.otf');
 
-  //-------CARGA DE TRAZOS Y RECTANGULOS-------
+  //-------CARGA DE TRAZOS Y MASCARAS-------
   for (let i = 0; i < 9; i++){
     let nombre = "data/trazo"+nf( i , 2 )+".png";
     let nombreM = "data/rect"+nf( i , 2 )+".png";
@@ -66,7 +64,7 @@ function preload() {
   }
 
   classifier = ml5.soundClassifier(soundModel + 'model.json');
-
+  //-----CARGAR LOS PUNTOS DE LOS TRAZOS DE LOS BORDES-----
   puntosX[0] = 180;
   puntosX[1] = 270;
   puntosX[2] = 350;
@@ -127,6 +125,8 @@ function setup() {
 }
 
 function draw() {
+
+  print(bordes);
   //--------MICROFONO---------
   gestorAmp.actualizar(mic.getLevel()); 
   amp = gestorAmp.filtrada;
@@ -148,30 +148,6 @@ function draw() {
   trazos(trazoRandom,x,y,bordes);
 
   antesHabiaSonido = haySonido;
-
-  reset();
-  windowResized();
-}
-
-function windowResized() {
-  resize(windowWidth,windowHeight);
-}
-
-function reset(){
-  if(label == 'Chasquidos'){
-    noStroke();
-    rect(0,0,width, height)
-    hay = round(random(0,1));
-    celeste = 0;
-    azul = 0;
-    gris = 0;
-    amarillo = 0;
-    rosa = 0;
-    azulF = 0;
-    blanco = 0;
-    label = '';
-    bordes = 0;
-  }
 }
 
 function gotResult(error, results) {
