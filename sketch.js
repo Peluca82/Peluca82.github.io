@@ -7,12 +7,8 @@ let trazosBordes = [];
 let puntosX = [];
 let puntosY = [];
 
-let hay = 0;
+let hay = 0; //ESTA ES LA VARIABLE QUE INDICA SI SE DIBUJA EL COLOR AZUL FUERTE
 let bordes = 0;
-
-//-------IMPRIMIR------
-let font;
-let IMPRIMIR = false;
 
 //-------SONIDO------
 let mic;
@@ -32,7 +28,7 @@ let rosa = 0;
 let azulF = 0;
 let blanco = 0;
 
-
+//-----UN ARREGLO DE COLORES-----
 let colores = [];
 colores[0] = new Array(143, 169, 186);
 colores[1] = new Array(252, 233, 104);
@@ -52,11 +48,9 @@ let etiqueta;
 let soundModel = 'https://teachablemachine.withgoogle.com/models/cy6YRPF3q/';
 
 function preload() {
-  //------FUENTE------
-  font = loadFont('data/regular.otf');
 
-  //-------CARGA DE TRAZOS Y MASCARAS-------
-  for (let i = 0; i < 9; i++){
+//-------CARGA DE TRAZOS Y MASCARAS-------
+  for (let i = 0; i < 14; i++){
     let nombre = "data/trazo"+nf( i , 2 )+".png";
     let nombreM = "data/rect"+nf( i , 2 )+".png";
     arreglo[i] = loadImage(nombre);
@@ -64,6 +58,7 @@ function preload() {
   }
 
   classifier = ml5.soundClassifier(soundModel + 'model.json');
+
   //-----CARGAR LOS PUNTOS DE LOS TRAZOS DE LOS BORDES-----
   puntosX[0] = 180;
   puntosX[1] = 270;
@@ -116,7 +111,7 @@ function setup() {
   gestorAmp = new gestorSenial(amp_min, amp_max);
 
   //-------APLICACION DE MASCARA A LOS RECTANGULOS-------
-  for (let i = 0; i < 9; i++){
+  for (let i = 0; i < 14; i++){
     mascara[i].mask (arreglo[i]);
   }
 
@@ -126,16 +121,10 @@ function setup() {
 
 function draw() {
 
-  print(bordes);
   //--------MICROFONO---------
   gestorAmp.actualizar(mic.getLevel()); 
   amp = gestorAmp.filtrada;
   haySonido = amp > amp_min;
-  let empezoElSonido = amp > haySonido && !antesHabiaSonido;
-
-  if(IMPRIMIR){
-    printData();
-  }
 
   //-------APLICACION DE MASCARA A LOS RECTANGULOS-------
   let trazoRandom = mascara[int(random(mascara.length))];
@@ -146,8 +135,6 @@ function draw() {
   
   //-----DIBUJAR TRAZOS-----  
   trazos(trazoRandom,x,y,bordes);
-
-  antesHabiaSonido = haySonido;
 }
 
 function gotResult(error, results) {
