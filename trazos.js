@@ -1,7 +1,7 @@
 function trazos(trazoRandom,x,y) {
 
   //-----TRAZOS DE LOS BORDES-----
-  if(bordes <= 0 && haySonido && label == 'Chasquido'){
+  if(bordes <= 0 && haySonido && label == 'RUIDO'){
     for(let i = 0; i <= 16; i++){
       let colorR = int(random(0,5));
       tint(colores[colorR][0], colores[colorR][1], colores[colorR][2]);
